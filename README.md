@@ -14,7 +14,7 @@ listenup(document.body, {
     },
     '.stuff > li': {
         click: function (ev) {
-            console.log('This is item #' + ev.target.value');
+            console.log('This is item #' + ev.target.value);
         }
     }
 });
