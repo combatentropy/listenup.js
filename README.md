@@ -8,7 +8,7 @@ listenup(document.body, {
             ev.preventDefault();
             alert('Hi');
         },
-        onmouseover: function (ev) {
+        mouseover: function (ev) {
             ev.target.textContent = "I'll say hi";
         }
     },
@@ -19,7 +19,6 @@ listenup(document.body, {
     }
 });
 ```
-Only one click handler actually gets added,
-even though two different selectors have a function.
-The listeners are added to the element in the first argument.
+Only one of each kind of click handler is added,
+to the element in the first argument.
 
