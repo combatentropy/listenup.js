@@ -24,7 +24,7 @@ Normally just one of each kind of event is added, to the document.body.
 
 In the rare case it might be too busy just to listen to the body,
 you can use two arguments.
-The first is a node or a selector, restricting the area listened to.
+The first is a node or selector, restricting the area listened to.
 
 ```js
 listenup(document.getElementById('area'), {...});  // node
