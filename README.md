@@ -20,12 +20,11 @@ listenup({
 });
 ```
 
-Normally just one of each kind of click handler is added, to the document.body.
+Normally just one of each kind of event is added, to the document.body.
 
 In the rare case it might be too busy just to listen to the body,
 you can use two arguments.
-The first is a node or a selector that matches one or more nodes.
-It will restrict the area listened to.
+The first is a node or a selector, restricting the area listened to.
 
 ```js
 listenup(document.getElementById('area'), {...});  // node
