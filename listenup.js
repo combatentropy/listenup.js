@@ -5,28 +5,52 @@ if (! Element.prototype.matches) {
     Element.prototype.matches = Element.prototype.msMatchesSelector;
 }
 
-function listenup(node, events) {
+function listenup(areas, selectors) {
 
-    let events2 = {};
-
-    for (let selector in events) {
-        let types = events[selector];
-        for (let type in types) {
-            let callback = types[type];
-            if (! (type in events2)) { events2[type] = []; }
-            events2[type].push({ selector: selector, callback: callback });
+    function addListeners(areas, events) {
+        for (let i = 0; i < areas.length; i++) {
+            let area = areas[i];
+            for (let type in events) {
+                let listeners = events[type];
+                area.addEventListener(type, function (ev) {
+                    let el = ev.target;
+                    for (let j = 0; j < listeners.length; j++) {
+                        let listener = listeners[j];
+                        if (el.matches(listener.selector)) {
+                            listener.callback(ev);
+                        }
+                    }
+                });
+            }
         }
     }
 
-    for (let type in events2) {
-        let listeners = events2[type];
-        node.addEventListener(type, function (ev) {
-            let el = ev.target;
-            for (let i = 0; i < listeners.length; i++) {
-                let listener = listeners[i];
-                if (el.matches(listener.selector)) { listener.callback(ev); }
-            }
+    // discern arguments
+    if ('undefined' === typeof selectors) {
+        selectors = areas;
+        areas = [ document.body ];
+    } else if ('string' === typeof areas) {
+        areas = document.querySelectorAll(areas);
+    } else if (areas instanceof HTMLElement) {
+        areas = [ areas ];
+    }
+
+    // reindex by type of event
+    let events = {};
+    for (let selector in selectors) {
+        let types = selectors[selector];
+        for (let type in types) {
+            let callback = types[type];
+            if (! (type in events)) { events[type] = []; }
+            events[type].push({ selector: selector, callback: callback });
+        }
+    }
+    
+    if ('loading' === document.readyState) {
+        document.addEventListener('DOMContentLoaded', function () {
+            addListeners(areas, events);
         });
+    } else {
+        addListeners(areas, events);
     }
 }
-

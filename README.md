@@ -22,3 +22,7 @@ listenup(document.body, {
 Only one of each kind of click handler is added,
 to the element in the first argument.
 
+The first argument is optional and defaults to document.body.
+Use it only if you think it would be too busy just to listen to the body.
+It can be a node or string, to restrict the area listened to.
+If a string, it is a selector that can match one or more nodes.
