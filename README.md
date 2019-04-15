@@ -20,7 +20,7 @@ listenup({
 });
 ```
 
-Only one of each kind of click handler is added, normally to the document.body.
+Normally just one of each kind of click handler is added, to the document.body.
 
 In the rare case it might be too busy just to listen to the body,
 you can use two arguments.
