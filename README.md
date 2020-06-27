@@ -4,25 +4,35 @@ Light and clear events
 ```js
 listenup({
     '.hi': {
-        click: function (ev) {
-            ev.preventDefault();
-            alert('Hi');
+        mouseover: function () {
+            this.textContent = "I'll say hi";
         },
-        mouseover: function (ev) {
-            ev.target.textContent = "I'll say hi";
+        click: function () {
+            alert('Hi');
         }
     },
     '.stuff > li': {
         click: function (ev) {
-            console.log('This is item #' + ev.target.value);
+            console.log('This is item #' + this.value);
         }
+    },
+
+    // Default events (experimental)
+    form: function (ev) {
+        ev.preventDefault();
+        // ajax stuff here ... 
+    },
+
+    '.clickable': function () {
+        alert('I was clicked!');
     }
 });
 ```
 
-Normally just one of each kind of event is added, to the document.body.
+This makes just one listener for each kind of event (click, change, etc.),
+added to the document.body.
 
-In the rare case it might be too busy just to listen to the body,
+In case that would be too busy (e.g., filtering every click on the body),
 you can use two arguments.
 The first is a node or selector, restricting the area listened to.
 
